@@ -14,7 +14,6 @@ var mysql = require("mysql"),
 	hasOwnProperty = Object.prototype.hasOwnProperty;
 
 connection.query(sql, function(err, rows) {
-	//console.dir(rows);
 	// TODO: be able to customize
 	rows.forEach(function(row) {
 		var redis_key = "TASK_" + row["taskId"],
@@ -23,7 +22,7 @@ connection.query(sql, function(err, rows) {
 
 		for (var hkey in row) {
 			if (!hasOwnProperty.call(row, hkey)) continue;
-			hvalue = row[hkey];
+			hvalue = row[hkey] + "";
 			output += tpl + "$" + hkey.length + "\r\f" + hkey + "\r\f" + "$" + hvalue.length + "\r\f" + hvalue + "\r\f";
 		}
 	});

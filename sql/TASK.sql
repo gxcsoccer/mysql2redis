@@ -1,3 +1,2 @@
-SELECT 	taskId
-		,taskName
+SELECT 	*
 FROM	`seaking_task`
