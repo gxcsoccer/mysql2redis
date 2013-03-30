@@ -10,7 +10,7 @@ var mysql = require("mysql"),
 	sql = fs.readFileSync("sql/TASK.sql", {
 		encoding: "utf-8"
 	}),
-	output = "",
+	output = "*1\r\f$7\r\fFLUSHDB\r\f",
 	hasOwnProperty = Object.prototype.hasOwnProperty;
 
 connection.query(sql, function(err, rows) {
@@ -23,7 +23,7 @@ connection.query(sql, function(err, rows) {
 		for (var hkey in row) {
 			if (!hasOwnProperty.call(row, hkey)) continue;
 			hvalue = row[hkey] + "";
-			output += tpl + "$" + hkey.length + "\r\f" + hkey + "\r\f" + "$" + hvalue.length + "\r\f" + hvalue + "\r\f";
+			output += tpl + "$" + hkey.length + "\r\f" + hkey + "\r\f" + "$" + Buffer.byteLength(hvalue) + "\r\f" + hvalue + "\r\f";
 		}
 	});
 
