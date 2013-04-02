@@ -2,10 +2,10 @@ var mysql = require("mysql"),
 	fs = require("fs"),
 	path = require("path"),
 	connection = mysql.createConnection({
-		host: 'hg.wozlla.com',
-		user: 'seaking',
-		password: 'seaking_server',
-		database: "seaking"
+		host: 'xxxx',
+		user: 'xxxx',
+		password: 'xxxx',
+		database: "xxxx"
 	}),
 	sql = fs.readFileSync("sql/TASK.sql", {
 		encoding: "utf-8"
