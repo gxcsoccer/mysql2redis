@@ -1,6 +1,7 @@
 var mysql = require("mysql"),
 	fs = require("fs"),
 	path = require("path"),
+	convertor = require("./convertor"),
 	connection = mysql.createConnection({
 		host: 'xxxx',
 		user: 'xxxx',
@@ -10,21 +11,14 @@ var mysql = require("mysql"),
 	sql = fs.readFileSync("sql/TASK.sql", {
 		encoding: "utf-8"
 	}),
-	output = "*1\r\f$7\r\fFLUSHDB\r\f",
+	output = "",
 	hasOwnProperty = Object.prototype.hasOwnProperty;
 
 connection.query(sql, function(err, rows) {
-	// TODO: be able to customize
 	rows.forEach(function(row) {
-		var redis_key = "TASK_" + row["taskId"],
-			tpl = "*4\r\f$4\r\fHSET\r\f$" + redis_key.length + "\r\f" + redis_key + "\r\f",
-			hvalue;
-
-		for (var hkey in row) {
-			if (!hasOwnProperty.call(row, hkey)) continue;
-			hvalue = row[hkey] + "";
-			output += tpl + "$" + hkey.length + "\r\f" + hkey + "\r\f" + "$" + Buffer.byteLength(hvalue) + "\r\f" + hvalue + "\r\f";
-		}
+		convertor.toHash(row, function(row) {
+			return "TASK_" + row["taskId"];
+		});
 	});
 
 	process.stdout.write(output);
