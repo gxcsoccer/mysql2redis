@@ -16,7 +16,6 @@ connection.query(sql, function(err, rows) {
 		});
 	});
 
-	//console.log(output);
 	process.stdout.write(output);
 
 	connection.end(function(err) {
