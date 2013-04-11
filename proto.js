@@ -2,12 +2,7 @@ var mysql = require("mysql"),
 	fs = require("fs"),
 	path = require("path"),
 	convertor = require("./convertor"),
-	connection = mysql.createConnection({
-		host: 'xxxx',
-		user: 'xxxx',
-		password: 'xxxx',
-		database: "xxxx"
-	}),
+	connection = mysql.createConnection(require("./config.json")),
 	sql = fs.readFileSync("sql/TASK.sql", {
 		encoding: "utf-8"
 	}),

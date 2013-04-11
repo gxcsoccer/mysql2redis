@@ -35,7 +35,7 @@ exports.toHash = function(row, keyGenerator) {
 	// HSET key hkey hvalue
 	for(hkey in row) {
 		if(hasOwnProperty.call(row, hkey)) {
-			hvalue = row[hkey];
+			hvalue = row[hkey].toString();
 			cmd += "*4\r\f$4HSET\r\f$" + Buffer.byteLength(key) + "\r\f" + key + "\r\f$" + Buffer.byteLength(hkey) + "\r\f" + hkey + "\r\f$" + Buffer.byteLength(hvalue) + "\r\f" + hvalue + "\r\f";
 		}
 	}
