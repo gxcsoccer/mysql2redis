@@ -11,11 +11,12 @@ var mysql = require("mysql"),
 
 connection.query(sql, function(err, rows) {
 	rows.forEach(function(row) {
-		convertor.toHash(row, function(row) {
+		output += convertor.toHash(row, function(row) {
 			return "TASK_" + row["taskId"];
 		});
 	});
 
+	//console.log(output);
 	process.stdout.write(output);
 
 	connection.end(function(err) {
